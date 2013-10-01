@@ -21,7 +21,7 @@ public class Lapin extends Neuneu {
      * Gets the regime of the neuneu
      * @return A HashSet with the regime.
      */
-    public static Set<String> getRegime(){
+    public Set<String> getRegime(){
         HashSet<String> keys = new HashSet<String>();
         keys.add(Type.ALCOOL);
         keys.add(Type.NEUNEU);

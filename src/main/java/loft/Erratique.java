@@ -22,7 +22,7 @@ public class Erratique extends Neuneu {
      * Gets the regime of the neuneu
      * @return A HashSet with the regime.
      */
-    public static Set<String> getRegime(){
+    public Set<String> getRegime(){
         HashSet<String> keys = new HashSet<String>();
         keys.add(Type.ALCOOL);
         keys.add(Type.NEUNEU);
@@ -49,13 +49,25 @@ public class Erratique extends Neuneu {
             directions.add(this.position.getBas());
         }
         Case randomDir = directions.get((int)(Math.random() * directions.size()));
-        this.position.habitant.remove(this);
-        randomDir.habitant.add(this);
+        this.position.getHabitant().remove(this);
+        randomDir.getHabitant().add(this);
         this.position = randomDir;
+        this.energie-=10;
+        //mange
+        if(randomDir.hasAliment(this)){
+            this.mange(randomDir.bestFood(this));
+        }
+        
     }
 
     public void mange(Nutriment nutriment){
-
+        if(nutriment instanceof Nourriture){
+            ((Nourriture) nutriment).quantite -=1;
+            this.energie += Type.getValeur().get(nutriment.getType().getType());
+            if(((Nourriture) nutriment).quantite == 0){
+                this.position.getContenu().remove(nutriment);
+            }
+        }
     }
 
     public Neuneu reproduction(Neuneu neuneu){

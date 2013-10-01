@@ -86,4 +86,8 @@ public class Type {
         ret.put(NORMAL, "NO");
         return ret;
     }
+
+    public String getType() {
+        return type;
+    }
 }

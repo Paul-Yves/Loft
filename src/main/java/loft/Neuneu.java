@@ -21,9 +21,7 @@ public abstract class Neuneu extends Nutriment{
     public abstract void deplace();
     public abstract void mange(Nutriment nutriment);
     public abstract Neuneu reproduction(Neuneu neuneu);
-    public static Set<String> getRegime(){
-        return null;
-    }
+    public abstract Set<String> getRegime();
 
     public int getEnergie() {
         return energie;

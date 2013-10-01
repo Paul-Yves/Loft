@@ -7,6 +7,8 @@ package loft;
  * and open the template in the editor.
  */
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -124,9 +126,66 @@ public class Case {
         return message;
     }
 
+    /**
+     * Vérifie qu'une case a un aliment dans le régime du neuneu
+     * @param neuneu Le neuneu concerné
+     * @return Vrai si la nourriture est présente, faux sinon.
+     */
     public boolean hasAliment(Neuneu neuneu){
-        for(Nourriture nourriture : getContenu()){
-            if(neuneu.)
+        for(Nourriture nourriture : this.getContenu()){
+            if(neuneu.getRegime().contains(nourriture.getType().getType())){
+                return true;
+            }
         }
+        return false;
+    }
+
+    /**
+     * Donne la case la plus proche, avec de la nourriture qui correspond au régime du neuneu selectionné
+     * @param neuneu Le neuneu (et donc régime) concerné
+     * @return La case la plus proche avec la nourriture.
+     */
+    public Case closerFood(Neuneu neuneu){
+        HashMap<Case, Integer> possible = new HashMap<Case, Integer>();
+        for(Case aCase : this.loft.getMap()){
+            if(aCase.hasAliment(neuneu)){
+                possible.put(aCase, Math.abs(aCase.abs - this.abs) + Math.abs(aCase.ord - this.ord));
+            }
+        }
+        Case ret = null;
+        int distance=10000;
+        for(Case aCase : possible.keySet()){
+            if(possible.get(aCase)<distance){
+                ret = aCase;
+                distance = possible.get(aCase);
+            }
+        }
+        return ret;
+    }
+
+    /**
+     * Donne l'aliment le plus attrayant de la case en fonction du neuneu choisi
+     * @param neuneu Le neuneu (et donc régime) concerné
+     * @return L'aliment le plus attrayant ou null si pas de nourriture
+     */
+    public Nourriture bestFood(Neuneu neuneu){
+        Nourriture retFood = null;
+        Integer attrait = 0;
+        for(Nourriture nourriture : getContenu()){
+            if(neuneu.getRegime().contains(nourriture.getType().getType())){
+                retFood = nourriture;
+                attrait = Type.getAttrait().get(nourriture.getType().getType());
+                break;
+            }
+        }
+        for(Nourriture nourriture : getContenu()){
+            if(neuneu.getRegime().contains(nourriture.getType().getType())){
+                if(attrait < Type.getAttrait().get(nourriture.getType().getType())){
+                    retFood = nourriture;
+                    attrait = Type.getAttrait().get(nourriture.getType().getType());
+                }
+            }
+        }
+        return retFood;
     }
 }
