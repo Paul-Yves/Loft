@@ -53,11 +53,14 @@ public class Erratique extends Neuneu {
         randomDir.getHabitant().add(this);
         this.position = randomDir;
         this.energie-=10;
-        //mange
+        //mange ou reproduit
+        if(this.energie >= 70 && this.position.getHabitant().size()>1){
+            this.reproduction(this.position.getHabitant())
+        }
         if(randomDir.hasAliment(this)){
             this.mange(randomDir.bestFood(this));
         }
-        
+
     }
 
     public void mange(Nutriment nutriment){
@@ -73,6 +76,6 @@ public class Erratique extends Neuneu {
     public Neuneu reproduction(Neuneu neuneu){
         this.energie -= 60;
         neuneu.energie -=60;
-        return new Erratique("toto", 100, this.position);
+        return new Erratique(neuneu.nom + "-" + this.nom, 100, this.position);
     }
 }
