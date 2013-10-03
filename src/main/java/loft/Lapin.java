@@ -51,7 +51,7 @@ public class Lapin extends Neuneu {
                 this.reproduction(this.position.getDroite().getHabitant().get(0));
             }
         }else if(!this.position.getContenu().isEmpty() && this.position.hasAliment(this)){
-            this.mange(this.position.getContenu())
+            this.mange(this.position.bestFood(this));
         }
     }
 
@@ -60,6 +60,8 @@ public class Lapin extends Neuneu {
     }
 
     public Neuneu reproduction(Neuneu neuneu){
-        return new Lapin();
+        this.energie -= 30;
+        neuneu.energie -=60;
+        return new Lapin(neuneu.nom + "-" + this.nom, 100, this.position);
     }
 }

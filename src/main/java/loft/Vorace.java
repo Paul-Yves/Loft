@@ -44,6 +44,8 @@ public class Vorace extends Neuneu {
     }
 
     public Neuneu reproduction(Neuneu neuneu){
-        return new Vorace();
+        this.energie -= 60;
+        neuneu.energie -=60;
+        return new Vorace(neuneu.nom + "-" + this.nom, 100, this.position);
     }
 }

@@ -41,6 +41,8 @@ public class Cannibale extends Neuneu {
     }
 
     public Neuneu reproduction(Neuneu neuneu){
-        return new Cannibale();
+        this.energie -= 60;
+        neuneu.energie -=60;
+        return new Cannibale(neuneu.nom + "-" + this.nom, 100, this.position);
     }
 }
