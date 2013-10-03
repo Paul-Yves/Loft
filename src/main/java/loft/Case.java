@@ -188,4 +188,19 @@ public class Case {
         }
         return retFood;
     }
+    
+    /**
+     * Permet de trouver un autre neuneu que celui en argument sur une case
+     * @param theNeuneu
+     * @return Un autre neuneu de la même case, null si il n'y en a pas
+     */
+    public Neuneu otherNeuneu(Neuneu theNeuneu){
+        Neuneu theOther = null;
+        for(Neuneu others : this.habitant){
+            if(!others.equals(theNeuneu)){
+                theOther = others;
+            }
+        }
+        return theOther;
+    }
 }

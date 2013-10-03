@@ -9,7 +9,8 @@ import java.util.Set;
  * User: Mario
  * Date: 30/09/13
  * Time: 10:19
- * To change this template use File | Settings | File Templates.
+ * Classe basique de neuneu sans aucune forme d'intelligence
+ * Deplacement aleatoire et aucune motivation particuliere
  */
 public class Erratique extends Neuneu {
     public Erratique(String nom, int energie, Case position) {
@@ -53,11 +54,10 @@ public class Erratique extends Neuneu {
         randomDir.getHabitant().add(this);
         this.position = randomDir;
         this.energie-=10;
-        //mange ou reproduit
+        //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
-            this.reproduction(this.position.getHabitant())
-        }
-        if(randomDir.hasAliment(this)){
+            this.reproduction(this.position.otherNeuneu(this));
+        }else if(randomDir.hasAliment(this)){
             this.mange(randomDir.bestFood(this));
         }
 
