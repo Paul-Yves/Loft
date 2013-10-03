@@ -73,10 +73,13 @@ public class Cannibale extends Neuneu {
         //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
             this.reproduction(this.position.otherNeuneu(this));
-        }else if(this.position.otherNeuneu(this)!=null){
-            this.mange(this.position.otherNeuneu(this));
-        }else if(this.position.hasAliment(this)){
-            this.mange(this.position.bestFood(this));
+        }else{
+            if(this.position.otherNeuneu(this)!=null){
+                this.mange(this.position.otherNeuneu(this));
+            }
+            if(this.position.hasAliment(this)){
+                this.mange(this.position.bestFood(this));
+            }
         }
     }
 
