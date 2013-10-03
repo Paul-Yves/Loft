@@ -203,4 +203,27 @@ public class Case {
         }
         return theOther;
     }
+    
+    /**
+     * Donne la case differente la plus proche contenant un autre neuneu
+     * @param theNeuneu
+     * @return autre case la plus proche ou se trouve un autre neuneu ou null
+     */
+    public Case closerNeuneu(Neuneu theNeuneu){
+        HashMap<Case, Integer> possible = new HashMap<Case, Integer>();
+        for(Case aCase : this.loft.getMap()){
+            if(aCase!=this && aCase.getHabitant().size()>0){
+                possible.put(aCase, Math.abs(aCase.abs - this.abs) + Math.abs(aCase.ord - this.ord));
+            }
+        }
+        Case ret = null;
+        int distance=10000;
+        for(Case aCase : possible.keySet()){
+            if(possible.get(aCase)<distance){
+                ret = aCase;
+                distance = possible.get(aCase);
+            }
+        }
+        return ret;
+    }
 }

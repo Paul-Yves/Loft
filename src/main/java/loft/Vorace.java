@@ -44,37 +44,39 @@ public class Vorace extends Neuneu {
             deltaX = caseBut.getAbs()-this.position.getAbs();
             deltaY = caseBut.getOrd()-this.position.getOrd();
         }
-        ArrayList<Case> directions = new ArrayList<Case>();
-        //on rentre une direction si elle est dans la bonne direction 
-        //ou si il n'y a pas de closerFood
-        if ((this.position.getGauche() != null && deltaX<0) ||
-                (caseBut==null && this.position.getGauche() != null)){
-            directions.add(this.position.getGauche());
+        //le vorace reste sur place si il reste de la nourriture
+        if(this.position!=caseBut){
+            ArrayList<Case> directions = new ArrayList<Case>();
+            //on rentre une direction si elle est dans la bonne direction 
+            //ou si il n'y a pas de closerFood
+            if ((this.position.getGauche() != null && deltaX<0) ||
+                    (caseBut==null && this.position.getGauche() != null)){
+                directions.add(this.position.getGauche());
+            }
+            if ((this.position.getHaut()!= null && deltaY<0) || 
+                    (caseBut==null && this.position.getHaut() != null)){
+                directions.add(this.position.getHaut());
+            }
+            if ((this.position.getDroite()!= null && deltaX>0) || 
+                    (caseBut==null && this.position.getDroite() != null)){
+                directions.add(this.position.getDroite());
+            }
+            if ((this.position.getBas()!= null && deltaY>0) || 
+                    (caseBut==null && this.position.getBas() != null)){
+                directions.add(this.position.getBas());
+            }
+            //deplacement eventuel
+            Case randomDir = directions.get((int)(Math.random() * directions.size()));
+            this.position.getHabitant().remove(this);
+            randomDir.getHabitant().add(this);
+            this.position = randomDir;
+            this.energie-=10;
         }
-        if ((this.position.getHaut()!= null && deltaY<0) || 
-                (caseBut==null && this.position.getHaut() != null)){
-            directions.add(this.position.getHaut());
-        }
-        if ((this.position.getDroite()!= null && deltaX>0) || 
-                (caseBut==null && this.position.getDroite() != null)){
-            directions.add(this.position.getDroite());
-        }
-        if ((this.position.getBas()!= null && deltaY>0) || 
-                (caseBut==null && this.position.getBas() != null)){
-            directions.add(this.position.getBas());
-        }
-        //deplacement
-        Case randomDir = directions.get((int)(Math.random() * directions.size()));
-        this.position.getHabitant().remove(this);
-        randomDir.getHabitant().add(this);
-        this.position = randomDir;
-        this.energie-=10;
-        
         //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
             this.reproduction(this.position.otherNeuneu(this));
-        }else if(randomDir.hasAliment(this)){
-            this.mange(randomDir.bestFood(this));
+        }else if(this.position.hasAliment(this)){
+            this.mange(this.position.bestFood(this));
         }
     }
 
