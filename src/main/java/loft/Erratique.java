@@ -26,7 +26,6 @@ public class Erratique extends Neuneu {
     public Set<String> getRegime(){
         HashSet<String> keys = new HashSet<String>();
         keys.add(Type.ALCOOL);
-        keys.add(Type.NEUNEU);
         keys.add(Type.JUNK);
         keys.add(Type.SAIN);
         keys.add(Type.POISON);

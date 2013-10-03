@@ -1,5 +1,6 @@
 package loft;
 
+import java.util.ArrayList;
 import loft.Nutriment;
 import loft.Neuneu;
 import loft.Case;
@@ -11,7 +12,7 @@ import java.util.Set;
  * User: Mario
  * Date: 30/09/13
  * Time: 10:20
- * To change this template use File | Settings | File Templates.
+ * Classe de neuneus cherchant à se nourrir en priorite
  */
 public class Vorace extends Neuneu {
     public Vorace(String nom, int energie, Case position) {
@@ -27,7 +28,6 @@ public class Vorace extends Neuneu {
     public Set<String> getRegime(){
         HashSet<String> keys = new HashSet<String>();
         keys.add(Type.ALCOOL);
-        keys.add(Type.NEUNEU);
         keys.add(Type.JUNK);
         keys.add(Type.SAIN);
         keys.add(Type.POISON);
@@ -36,11 +36,56 @@ public class Vorace extends Neuneu {
     }
 
     public void deplace(){
-
+        //reperage
+        Case caseBut = this.position.closerFood(this);
+        int deltaX = 0;
+        int deltaY = 0;
+        if(caseBut!=null){
+            deltaX = caseBut.getAbs()-this.position.getAbs();
+            deltaY = caseBut.getOrd()-this.position.getOrd();
+        }
+        ArrayList<Case> directions = new ArrayList<Case>();
+        //on rentre une direction si elle est dans la bonne direction 
+        //ou si il n'y a pas de closerFood
+        if ((this.position.getGauche() != null && deltaX<0) ||
+                (caseBut==null && this.position.getGauche() != null)){
+            directions.add(this.position.getGauche());
+        }
+        if ((this.position.getHaut()!= null && deltaY<0) || 
+                (caseBut==null && this.position.getHaut() != null)){
+            directions.add(this.position.getHaut());
+        }
+        if ((this.position.getDroite()!= null && deltaX>0) || 
+                (caseBut==null && this.position.getDroite() != null)){
+            directions.add(this.position.getDroite());
+        }
+        if ((this.position.getBas()!= null && deltaY>0) || 
+                (caseBut==null && this.position.getBas() != null)){
+            directions.add(this.position.getBas());
+        }
+        //deplacement
+        Case randomDir = directions.get((int)(Math.random() * directions.size()));
+        this.position.getHabitant().remove(this);
+        randomDir.getHabitant().add(this);
+        this.position = randomDir;
+        this.energie-=10;
+        
+        //se reproduit ou mange
+        if(this.energie >= 70 && this.position.getHabitant().size()>1){
+            this.reproduction(this.position.otherNeuneu(this));
+        }else if(randomDir.hasAliment(this)){
+            this.mange(randomDir.bestFood(this));
+        }
     }
 
     public void mange(Nutriment nutriment){
-
+        if(nutriment instanceof Nourriture){
+            ((Nourriture) nutriment).quantite -=1;
+            this.energie += Type.getValeur().get(nutriment.getType().getType());
+            if(((Nourriture) nutriment).quantite == 0){
+                this.position.getContenu().remove(nutriment);
+            }
+        }
     }
 
     public Neuneu reproduction(Neuneu neuneu){
