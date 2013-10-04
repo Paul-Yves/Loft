@@ -19,8 +19,8 @@ public class Loft {
     protected ArrayList<Neuneu> lofteurs;
     protected ArrayList<Case> map;
     
-    public static final int W = 40;
-    public static final int H = 40;
+    public static final int W = 20;
+    public static final int H = 20;
     
     public void ajoutLofteur(Neuneu newLofteur){
         this.lofteurs.add(newLofteur);
