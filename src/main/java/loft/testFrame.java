@@ -4,25 +4,33 @@
  */
 package loft;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author paulyves
  */
 public class testFrame extends javax.swing.JFrame {
-
+    private NewJPanel pane = new NewJPanel();
     /**
      * Creates new form testFrame
      */
     public testFrame() {
         initComponents();
         this.setTitle("Tp Lofteurs");
-        this.setContentPane(new NewJPanel());
+        jButton1.setText("tour suivant");
+        this.setLocationRelativeTo(null);
+        this.setLayout(new BorderLayout());
+        this.setContentPane(pane);
         this.setMinimumSize(new Dimension((Loft.W+4)*20, (Loft.H+4)*20));
+        
+        this.jButton1.setSize(150, 30);
+        this.getContentPane().add(jButton1,BorderLayout.SOUTH);
     }
     
 
@@ -43,6 +51,11 @@ public class testFrame extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
 
         jButton1.setText("jButton1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,6 +83,11 @@ public class testFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        pane.repaint();
+        System.out.println("clic");
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments

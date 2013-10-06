@@ -18,11 +18,15 @@ public class NewJPanel extends javax.swing.JPanel {
      */
     public NewJPanel() {
         initComponents();
-        jButton1.setText("tour suivant");
     }
     
     public void paintComponent(Graphics g) {
-        g.setColor(Color.red);
+        int alea = (int)(Math.random() * 4);
+        if (alea>1){
+            g.setColor(Color.red);
+        } else {
+            g.setColor(Color.black);
+        }
         for (int i = 0; i < Loft.W; i++) {
             for (int j = 0; j < Loft.H; j++) {
                 if ((i % 2 == 0 && j % 2 ==1)||(i % 2 == 1 && j % 2 ==0)) {
@@ -41,28 +45,17 @@ public class NewJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-
-        jButton1.setText("jButton1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addComponent(jButton1)
-                .addContainerGap(93, Short.MAX_VALUE))
+            .addGap(0, 268, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(166, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+            .addGap(0, 203, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
