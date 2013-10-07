@@ -93,8 +93,7 @@ public class Cannibale extends Neuneu {
         }else if (nutriment instanceof Neuneu){
             this.energie += Type.getValeur().get(nutriment.getType().getType());
             Neuneu victime = (Neuneu) nutriment;
-            victime.getPosition().getHabitant().remove(victime);
-            victime.getPosition().getLoft().getLofteurs().remove(victime);
+            victime.energie = 0;
         }
     }
 

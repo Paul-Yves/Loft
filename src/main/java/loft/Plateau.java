@@ -14,6 +14,7 @@ import java.io.FileNotFoundException;
  */
 public class Plateau extends javax.swing.JPanel {
     private Loft loft;
+    public static final int TAILLECASE = 25;
     /**
      * Creates new form NewJPanel
      */
@@ -29,17 +30,44 @@ public class Plateau extends javax.swing.JPanel {
     
     
     public void paintComponent(Graphics g) {
+        g.setColor(Color.white);
+        g.clearRect(0, 0, (Loft.W+5)*TAILLECASE, (Loft.H+5)*TAILLECASE);
         int alea = (int)(Math.random() * 4);
-        if (alea>1){
-            g.setColor(Color.red);
-        } else {
-            g.setColor(Color.black);
-        }
+        g.setColor(Color.lightGray);
+        //placer les cases
         for (int i = 0; i < Loft.W; i++) {
             for (int j = 0; j < Loft.H; j++) {
                 if ((i % 2 == 0 && j % 2 ==1)||(i % 2 == 1 && j % 2 ==0)) {
-                    g.fillRect(20 * i + 5, 20 * j + 5, 20, 20);
+                    g.fillRect(TAILLECASE * i + TAILLECASE, TAILLECASE * j + TAILLECASE, TAILLECASE, TAILLECASE);
                 }
+            }
+        }
+        
+        //placer les neuneus
+        for(Neuneu lofteur:this.loft.getLofteurs()){
+            int abs = lofteur.getPosition().getAbs();
+            int ord = lofteur.getPosition().getOrd();
+            if (lofteur instanceof Erratique){
+                g.setColor(Color.green);
+            } else if (lofteur instanceof Vorace){
+                g.setColor(Color.blue);
+            } else if (lofteur instanceof Lapin){
+                g.setColor(Color.pink);
+            } else {
+                g.setColor(Color.red);
+            }
+            g.drawString(lofteur.getNom(), (abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2-10);
+            g.fillOval((abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2, 10, 10);
+        }
+        
+        //placer la nourriture
+        for(Case aCase : this.loft.map){
+            for(Nourriture bouffe : aCase.getContenu()){
+                g.setColor(Color.BLACK);
+                int abs = aCase.getAbs();
+                int ord = aCase.getOrd();
+                g.drawString(bouffe.getNom()+" :"+bouffe.quantite, (abs+1)*TAILLECASE+TAILLECASE/4, (ord+1)*TAILLECASE+TAILLECASE/2-6);
+                g.fillRect((abs+1)*TAILLECASE+TAILLECASE/4, (ord+1)*TAILLECASE+TAILLECASE/2, 10, 10);
             }
         }
     }

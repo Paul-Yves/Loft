@@ -68,10 +68,10 @@ public class Loft {
             listTypes.add("sain");
             listTypes.add("poison");
             listTypes.add("normal");
-            if(dice100<10){
+            if(dice100<5){
                 int dice5 = (int)(Math.random() * 5);
-                int dice60 = (int)(Math.random() * 60);
-                Nourriture bouffe = new Nourriture(listTypes.get(dice5), dice60+1, listTypes.get(dice5));
+                int dice6 = (int)(Math.random() * 6);
+                Nourriture bouffe = new Nourriture(listTypes.get(dice5), dice6+1, listTypes.get(dice5));
                 aCase.getContenu().add(bouffe);
             }
         }
@@ -90,7 +90,6 @@ public class Loft {
     }
     
     public void tourDeNeuneus(){
-        this.affiche();
         for (Neuneu aNeuneu : this.lofteurs) {
             aNeuneu.deplace();
             if (aNeuneu.getEnergie() <= 0) {
