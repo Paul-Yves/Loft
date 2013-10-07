@@ -72,7 +72,15 @@ public class Plateau extends javax.swing.JPanel {
         }
         
         //compteur de neuneus
-        g.drawString("Il y a : "+this.loft.getLofteurs().size()+" neuneus", 0, TAILLECASE);
+        g.drawString("Il y a : "+this.loft.getLofteurs().size()+" neuneus", 0, TAILLECASE/2);
+        
+        //fin de partie 
+        if (loft.lofteurs.size()<=1){
+            g.setColor(Color.white);
+            g.clearRect(0, 0, (Loft.W+5)*TAILLECASE, (Loft.H+5)*TAILLECASE);
+            g.setColor(Color.black);
+            g.drawString("C'est fini, il n'y a plus qu'un lofteur et il va mourir seul", TAILLECASE*4, TAILLECASE*4);
+        }
     }
 
     /**

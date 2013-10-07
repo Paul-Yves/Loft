@@ -82,7 +82,7 @@ public class FenetreJeu extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         pane.getLoft().tourDeNeuneus();
         pane.repaint();
-        System.out.println("clic");
+        System.out.println("Nouveau tour");
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**

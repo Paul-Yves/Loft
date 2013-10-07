@@ -103,7 +103,7 @@ public class Cannibale extends Neuneu {
             System.out.println("OH OmNomNom!");
             this.energie += Type.getValeur().get(nutriment.getType().getType());
             Neuneu victime = (Neuneu) nutriment;
-            victime.energie = -30;
+            victime.energie -= 120;
         }
     }
 
