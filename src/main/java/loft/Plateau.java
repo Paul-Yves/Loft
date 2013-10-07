@@ -14,7 +14,7 @@ import java.io.FileNotFoundException;
  */
 public class Plateau extends javax.swing.JPanel {
     private Loft loft;
-    public static final int TAILLECASE = 25;
+    public static final int TAILLECASE = 30;
     /**
      * Creates new form NewJPanel
      */
@@ -52,11 +52,11 @@ public class Plateau extends javax.swing.JPanel {
             } else if (lofteur instanceof Vorace){
                 g.setColor(Color.blue);
             } else if (lofteur instanceof Lapin){
-                g.setColor(Color.pink);
+                g.setColor(new Color(255, 50, 155));
             } else {
                 g.setColor(Color.red);
             }
-            g.drawString(lofteur.getNom(), (abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2-10);
+            g.drawString(lofteur.getNom()+lofteur.getGeneration()+":"+lofteur.getEnergie(), (abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2-10);
             g.fillOval((abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2, 10, 10);
         }
         
@@ -70,6 +70,9 @@ public class Plateau extends javax.swing.JPanel {
                 g.fillRect((abs+1)*TAILLECASE+TAILLECASE/4, (ord+1)*TAILLECASE+TAILLECASE/2, 10, 10);
             }
         }
+        
+        //compteur de neuneus
+        g.drawString("Il y a : "+this.loft.getLofteurs().size()+" neuneus", 0, TAILLECASE);
     }
 
     /**

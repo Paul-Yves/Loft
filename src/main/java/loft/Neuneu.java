@@ -13,7 +13,7 @@ public abstract class Neuneu extends Nutriment{
     protected int energie;
     protected Case position;
     protected Loft loft;
-
+    protected int generation = 0;
     {
         this.type=new Type("neuneu");
     }
@@ -34,4 +34,9 @@ public abstract class Neuneu extends Nutriment{
     public Loft getLoft() {
         return loft;
     }
+
+    public int getGeneration() {
+        return generation;
+    }
+    
 }

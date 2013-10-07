@@ -111,6 +111,7 @@ public class Case {
     
     public String toString(){
         String message = new String();
+        message += this.abs+" x "+this.ord+" ";
         if(!contenu.isEmpty()){
             message += "Il y a à manger :";
             for(Nourriture food : contenu){

@@ -17,6 +17,12 @@ public class Cannibale extends Neuneu {
         this.energie=energie;
         this.position=position;
     }
+    public Cannibale(String nom, int energie, Case position, int generation) {
+        this.nom=nom;
+        this.energie=energie;
+        this.position=position;
+        this.generation=generation+1;
+    }
 
     /**
      * Gets the regime of the neuneu
@@ -36,6 +42,9 @@ public class Cannibale extends Neuneu {
     public void deplace(){
         //reperage
         Case caseBut = this.position.closerFood(this);
+        if (caseBut==null){
+            caseBut = this.position.closerNeuneu(this);
+        }
         int deltaX = 0;
         int deltaY = 0;
         if(caseBut!=null){
@@ -72,7 +81,7 @@ public class Cannibale extends Neuneu {
         }
         //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
-            this.reproduction(this.position.otherNeuneu(this));
+            position.getLoft().ajoutLofteur(this.reproduction(this.position.otherNeuneu(this)));
         }else{
             if(this.position.otherNeuneu(this)!=null){
                 this.mange(this.position.otherNeuneu(this));
@@ -91,15 +100,16 @@ public class Cannibale extends Neuneu {
                 this.position.getContenu().remove(nutriment);
             }
         }else if (nutriment instanceof Neuneu){
+            System.out.println("OH OmNomNom!");
             this.energie += Type.getValeur().get(nutriment.getType().getType());
             Neuneu victime = (Neuneu) nutriment;
-            victime.energie = 0;
+            victime.energie = -30;
         }
     }
 
     public Neuneu reproduction(Neuneu neuneu){
         this.energie -= 60;
         neuneu.energie -=60;
-        return new Cannibale(neuneu.nom + "-" + this.nom, 100, this.position);
+        return new Cannibale(this.nom, 100, this.position, this.generation);
     }
 }

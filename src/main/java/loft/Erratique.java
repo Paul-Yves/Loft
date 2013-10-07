@@ -18,6 +18,12 @@ public class Erratique extends Neuneu {
         this.energie=energie;
         this.position=position;
     }
+    public Erratique(String nom, int energie, Case position, int generation) {
+        this.nom=nom;
+        this.energie=energie;
+        this.position=position;
+        this.generation=generation+1;
+    }
 
     /**
      * Gets the regime of the neuneu
@@ -55,7 +61,7 @@ public class Erratique extends Neuneu {
         this.energie-=10;
         //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
-            this.reproduction(this.position.otherNeuneu(this));
+            position.getLoft().ajoutLofteur(this.reproduction(this.position.otherNeuneu(this)));
         }else if(randomDir.hasAliment(this)){
             this.mange(randomDir.bestFood(this));
         }
@@ -75,6 +81,6 @@ public class Erratique extends Neuneu {
     public Neuneu reproduction(Neuneu neuneu){
         this.energie -= 60;
         neuneu.energie -=60;
-        return new Erratique(neuneu.nom + "-" + this.nom, 100, this.position);
+        return new Erratique(this.nom, 100, this.position, this.generation);
     }
 }

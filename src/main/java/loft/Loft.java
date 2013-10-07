@@ -7,7 +7,7 @@ package loft;
 
 
 import java.io.BufferedReader;
-import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.*;
 
@@ -18,12 +18,18 @@ import java.util.*;
 public class Loft {
     protected ArrayList<Neuneu> lofteurs = new ArrayList<Neuneu>();
     protected ArrayList<Case> map = new ArrayList<Case>();
+    protected ArrayList<Neuneu> nouveauxNes = new ArrayList<Neuneu>();
     
-    public static final int W = 20;
-    public static final int H = 20;
+    public static final int W = 25;
+    public static final int H = 25;
     
+    /**
+     * ajoute un lofteur en cours de jeu
+     * @param newLofteur 
+     */
     public void ajoutLofteur(Neuneu newLofteur){
-        this.lofteurs.add(newLofteur);
+        this.nouveauxNes.add(newLofteur);
+        newLofteur.getPosition().getHabitant().add(newLofteur);
     }
     
     /**
@@ -42,7 +48,7 @@ public class Loft {
         
         //creation des lofteurs
         for(String nom : listeNom){
-            int random = (int)(Math.random() * (4-1)) + 1;
+            int random = (int)(Math.random() * (5-1)) + 1;
             int randomPos = (int)(Math.random() * this.map.size());
             Case randomCase = this.map.get(randomPos);
             Neuneu newNeuneu;
@@ -80,7 +86,8 @@ public class Loft {
     
     public ArrayList<String> readNom() throws FileNotFoundException{
         ArrayList<String> listeNom = new ArrayList<String>();
-        Scanner scanner = new Scanner(new File("/home/paulyves/repositories/Loft/nom.csv"));
+        Scanner scanner = new Scanner(new FileInputStream(
+                this.getClass().getResource("nom.csv").getFile()));
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
             listeNom.add(scanner.next());
@@ -90,13 +97,28 @@ public class Loft {
     }
     
     public void tourDeNeuneus(){
+        ArrayList<Neuneu> morts = new ArrayList<Neuneu>();
+        //le tour
+        //déplacement des neuneus
         for (Neuneu aNeuneu : this.lofteurs) {
             aNeuneu.deplace();
+        }
+        //listage des victimes
+        for (Neuneu aNeuneu : this.lofteurs) {
             if (aNeuneu.getEnergie() <= 0) {
                 aNeuneu.getPosition().habitant.remove(aNeuneu);
-                this.lofteurs.remove(aNeuneu);
+                morts.add(aNeuneu);
             }
         }
+        //morts des neuneus
+        for (Neuneu neuneuMort : morts){
+            this.lofteurs.remove(neuneuMort);
+        }
+        //ajout des nouveaux nés
+        for (Neuneu newborn : nouveauxNes){
+            this.lofteurs.add(newborn);
+        }
+        this.nouveauxNes.clear();
     }
     
     public void affiche(){

@@ -20,6 +20,12 @@ public class Vorace extends Neuneu {
         this.energie=energie;
         this.position=position;
     }
+    public Vorace(String nom, int energie, Case position, int generation) {
+        this.nom=nom;
+        this.energie=energie;
+        this.position=position;
+        this.generation=generation+1;
+    }
 
     /**
      * Gets the regime of the neuneu
@@ -74,7 +80,7 @@ public class Vorace extends Neuneu {
         }
         //se reproduit ou mange
         if(this.energie >= 70 && this.position.getHabitant().size()>1){
-            this.reproduction(this.position.otherNeuneu(this));
+            position.getLoft().ajoutLofteur(this.reproduction(this.position.otherNeuneu(this)));
         }else if(this.position.hasAliment(this)){
             this.mange(this.position.bestFood(this));
         }
@@ -93,6 +99,6 @@ public class Vorace extends Neuneu {
     public Neuneu reproduction(Neuneu neuneu){
         this.energie -= 60;
         neuneu.energie -=60;
-        return new Vorace(neuneu.nom + "-" + this.nom, 100, this.position);
+        return new Vorace(this.nom, 100, this.position, this.generation);
     }
 }

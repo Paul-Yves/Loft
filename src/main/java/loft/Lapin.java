@@ -17,6 +17,12 @@ public class Lapin extends Neuneu {
         this.energie=energie;
         this.position=position;
     }
+    public Lapin(String nom, int energie, Case position, int generation) {
+        this.nom=nom;
+        this.energie=energie;
+        this.position=position;
+        this.generation=generation+1;
+    }
 
     /**
      * Gets the regime of the neuneu
@@ -69,7 +75,7 @@ public class Lapin extends Neuneu {
         
         //se reproduit ou mange
         if(this.energie >= 50 && this.position.getHabitant().size()>1){
-            this.reproduction(this.position.otherNeuneu(this));
+            position.getLoft().ajoutLofteur(this.reproduction(this.position.otherNeuneu(this)));
         }else if(randomDir.hasAliment(this)){
             this.mange(randomDir.bestFood(this));
         }
@@ -86,8 +92,9 @@ public class Lapin extends Neuneu {
     }
 
     public Neuneu reproduction(Neuneu neuneu){
-        this.energie -= 30;
+        System.out.println("Reproduction de lapin!");
+        this.energie -= 55;
         neuneu.energie -=60;
-        return new Lapin(neuneu.nom + "-" + this.nom, 100, this.position);
+        return new Lapin(this.nom, 100, this.position, this.generation);
     }
 }

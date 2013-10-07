@@ -48,12 +48,12 @@ public class Type {
      */
     public static Map<String, Integer> getAttrait(){
         HashMap<String, Integer> ret = new HashMap<String, Integer>();
-        ret.put(ALCOOL, 2);
-        ret.put(NEUNEU, 2);
-        ret.put(JUNK, 2);
-        ret.put(SAIN, 2);
-        ret.put(POISON, 2);
-        ret.put(NORMAL, 2);
+        ret.put(ALCOOL, 10);
+        ret.put(NEUNEU, 0);
+        ret.put(JUNK, 12);
+        ret.put(SAIN, 6);
+        ret.put(POISON, 8);
+        ret.put(NORMAL, 9);
         return ret;
     }
 
@@ -63,12 +63,12 @@ public class Type {
      */
     public static Map<String, Integer> getValeur(){
         HashMap<String, Integer> ret = new HashMap<String, Integer>();
-        ret.put(ALCOOL, 2);
-        ret.put(NEUNEU, 2);
-        ret.put(JUNK, 2);
-        ret.put(SAIN, 2);
-        ret.put(POISON, 2);
-        ret.put(NORMAL, 2);
+        ret.put(ALCOOL, 15);
+        ret.put(NEUNEU, 60);
+        ret.put(JUNK, 25);
+        ret.put(SAIN, 50);
+        ret.put(POISON, -5);
+        ret.put(NORMAL, 30);
         return ret;
     }
 
