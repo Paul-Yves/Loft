@@ -18,8 +18,8 @@ import java.util.List;
 public class Case {
     protected int abs;
     protected int ord;
-    protected List<Nourriture> contenu;
-    protected List<Neuneu> habitant;
+    protected List<Nourriture> contenu = new ArrayList<Nourriture>();
+    protected List<Neuneu> habitant = new ArrayList<Neuneu>();
     protected Loft loft;
 
     public Case(int abs, int ord, Loft loft) {

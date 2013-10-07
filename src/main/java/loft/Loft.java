@@ -16,8 +16,8 @@ import java.util.*;
  * @author paulyves
  */
 public class Loft {
-    protected ArrayList<Neuneu> lofteurs;
-    protected ArrayList<Case> map;
+    protected ArrayList<Neuneu> lofteurs = new ArrayList<Neuneu>();
+    protected ArrayList<Case> map = new ArrayList<Case>();
     
     public static final int W = 20;
     public static final int H = 20;
@@ -80,7 +80,7 @@ public class Loft {
     
     public ArrayList<String> readNom() throws FileNotFoundException{
         ArrayList<String> listeNom = new ArrayList<String>();
-        Scanner scanner = new Scanner(new File("/home/paulyves/repositories/tp_lofteurs/nom.csv"));
+        Scanner scanner = new Scanner(new File("/home/paulyves/repositories/Loft/nom.csv"));
         scanner.useDelimiter(",");
         while(scanner.hasNext()){
             listeNom.add(scanner.next());

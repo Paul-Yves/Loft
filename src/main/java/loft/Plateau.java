@@ -6,19 +6,27 @@ package loft;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.FileNotFoundException;
 
 /**
  *
  * @author paulyves
  */
-public class NewJPanel extends javax.swing.JPanel {
-
+public class Plateau extends javax.swing.JPanel {
+    private Loft loft;
     /**
      * Creates new form NewJPanel
      */
-    public NewJPanel() {
+    public Plateau() throws FileNotFoundException {
         initComponents();
+        loft = new Loft();
     }
+
+    public Loft getLoft() {
+        return loft;
+    }
+    
+    
     
     public void paintComponent(Graphics g) {
         int alea = (int)(Math.random() * 4);
