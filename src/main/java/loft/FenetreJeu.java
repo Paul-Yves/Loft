@@ -15,8 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
- * @author paulyves
+ * Représente la fenêtre de jeu
+ * @author paulyves, mario
  */
 public class FenetreJeu extends javax.swing.JFrame {
     private Plateau pane;
@@ -64,16 +64,16 @@ public class FenetreJeu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(569, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(423, 423, 423)
                 .addComponent(jButton1)
-                .addGap(329, 329, 329))
+                .addContainerGap(547, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(778, Short.MAX_VALUE)
-                .addComponent(jButton1))
+                .addComponent(jButton1)
+                .addGap(0, 812, Short.MAX_VALUE))
         );
 
         pack();

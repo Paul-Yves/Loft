@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package loft;
 
 import java.awt.Color;
@@ -9,11 +5,14 @@ import java.awt.Graphics;
 import java.io.FileNotFoundException;
 
 /**
- *
- * @author paulyves
+ * Represente le plateau de jeux, avec cases etc..
+ * @author paulyves, mario
  */
 public class Plateau extends javax.swing.JPanel {
     private Loft loft;
+    /**
+     * Taille d'une case en px
+     */
     public static final int TAILLECASE = 30;
     /**
      * Creates new form NewJPanel
@@ -27,8 +26,10 @@ public class Plateau extends javax.swing.JPanel {
         return loft;
     }
     
-    
-    
+    /**
+     * Initialise le plateau au début d'un tour
+     * @param g Composant graphique SWING
+     */
     public void paintComponent(Graphics g) {
         g.setColor(Color.white);
         g.clearRect(0, 0, (Loft.W+5)*TAILLECASE, (Loft.H+5)*TAILLECASE);
@@ -53,8 +54,10 @@ public class Plateau extends javax.swing.JPanel {
                 g.setColor(Color.blue);
             } else if (lofteur instanceof Lapin){
                 g.setColor(new Color(255, 50, 155));
-            } else {
+            } else if (lofteur instanceof Cannibale && !(lofteur instanceof Zombie)){
                 g.setColor(Color.red);
+            } else {
+                g.setColor(new Color(50,120,50));
             }
             g.drawString(lofteur.getNom()+lofteur.getGeneration()+":"+lofteur.getEnergie(), (abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2-10);
             g.fillOval((abs+1)*TAILLECASE+TAILLECASE/2, (ord+1)*TAILLECASE+TAILLECASE/2, 10, 10);

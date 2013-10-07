@@ -1,5 +1,6 @@
 package loft;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -37,6 +38,28 @@ public abstract class Neuneu extends Nutriment{
 
     public int getGeneration() {
         return generation;
+    }
+    
+    protected Case direction(Case caseBut, int deltaX, int deltaY){
+        ArrayList<Case> directions = new ArrayList<Case>();
+        //on rentre une direction si elle est dans la bonne direction
+        if ((this.position.getGauche() != null && deltaX<0) ||
+                (caseBut==null && this.position.getGauche() != null)){
+            directions.add(this.position.getGauche());
+        }
+        if ((this.position.getHaut()!= null && deltaY<0) || 
+                (caseBut==null && this.position.getHaut() != null)){
+            directions.add(this.position.getHaut());
+        }
+        if ((this.position.getDroite()!= null && deltaX>0) || 
+                (caseBut==null && this.position.getDroite() != null)){
+            directions.add(this.position.getDroite());
+        }
+        if ((this.position.getBas()!= null && deltaY>0) || 
+                (caseBut==null && this.position.getBas() != null)){
+            directions.add(this.position.getBas());
+        }
+        return (directions.size()==0? null : directions.get((int)(Math.random() * directions.size())));
     }
     
 }

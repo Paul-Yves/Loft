@@ -20,8 +20,8 @@ public class Loft {
     protected ArrayList<Case> map = new ArrayList<Case>();
     protected ArrayList<Neuneu> nouveauxNes = new ArrayList<Neuneu>();
     
-    public static final int W = 25;
-    public static final int H = 25;
+    public static final int W = 30;
+    public static final int H = 30;
     
     /**
      * ajoute un lofteur en cours de jeu
@@ -48,7 +48,7 @@ public class Loft {
         
         //creation des lofteurs
         for(String nom : listeNom){
-            int random = (int)(Math.random() * (5-1)) + 1;
+            int random = (int)(Math.random() * (5)) + 1;
             int randomPos = (int)(Math.random() * this.map.size());
             Case randomCase = this.map.get(randomPos);
             Neuneu newNeuneu;
@@ -58,8 +58,10 @@ public class Loft {
                 newNeuneu = new Vorace(nom, 100, randomCase);
             }else if(random == 3){
                 newNeuneu = new Cannibale(nom, 100, randomCase);
-            }else{
+            }else if(random == 4){
                 newNeuneu = new Lapin(nom, 100, randomCase);
+            }else{
+                newNeuneu = new Zombie(nom, 50, randomCase);
             }
             randomCase.addHabitant(newNeuneu);
             lofteurs.add(newNeuneu);

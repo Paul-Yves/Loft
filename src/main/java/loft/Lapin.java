@@ -49,25 +49,11 @@ public class Lapin extends Neuneu {
         }
         ArrayList<Case> directions = new ArrayList<Case>();
         //on rentre une direction si elle est dans la bonne direction 
-        //ou si il n'y a pas de closerNeuneu
-        if ((this.position.getGauche() != null && deltaX<0) ||
-                (caseBut==null && this.position.getGauche() != null)){
-            directions.add(this.position.getGauche());
+        
+        Case randomDir = this.direction(caseBut, deltaX, deltaY);
+        if (randomDir == null) {
+            randomDir = this.position;
         }
-        if ((this.position.getHaut()!= null && deltaY<0) || 
-                (caseBut==null && this.position.getHaut() != null)){
-            directions.add(this.position.getHaut());
-        }
-        if ((this.position.getDroite()!= null && deltaX>0) || 
-                (caseBut==null && this.position.getDroite() != null)){
-            directions.add(this.position.getDroite());
-        }
-        if ((this.position.getBas()!= null && deltaY>0) || 
-                (caseBut==null && this.position.getBas() != null)){
-            directions.add(this.position.getBas());
-        }
-        //deplacement
-        Case randomDir = directions.get((int)(Math.random() * directions.size()));
         this.position.getHabitant().remove(this);
         randomDir.getHabitant().add(this);
         this.position = randomDir;

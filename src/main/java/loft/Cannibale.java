@@ -5,18 +5,29 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Mario
- * Date: 30/09/13
- * Time: 10:20
- * To change this template use File | Settings | File Templates.
+ * Représente le neuneu canibale
+ * @author paul-yves, mario
  */
 public class Cannibale extends Neuneu {
+    /**
+     * constructeur a l'initialisation
+     * @param nom
+     * @param energie
+     * @param position 
+     */
     public Cannibale(String nom, int energie, Case position) {
         this.nom=nom;
         this.energie=energie;
         this.position=position;
     }
+    
+    /**
+     * constructeur à la naissance
+     * @param nom
+     * @param energie
+     * @param position
+     * @param generation 
+     */
     public Cannibale(String nom, int energie, Case position, int generation) {
         this.nom=nom;
         this.energie=energie;
@@ -39,6 +50,9 @@ public class Cannibale extends Neuneu {
         return keys;
     }
 
+    /**
+     * Execute les taches d'un tour de neuneu: repérage des cases proches, déplacement, se nourir ou reproduire
+     */
     public void deplace(){
         //reperage
         Case caseBut = this.position.closerFood(this);
@@ -53,27 +67,11 @@ public class Cannibale extends Neuneu {
         }
         //le cannibale reste sur place si il reste de la nourriture
         if(this.position!=caseBut){
-            ArrayList<Case> directions = new ArrayList<Case>();
-            //on rentre une direction si elle est dans la bonne direction 
-            //ou si il n'y a pas de closerFood
-            if ((this.position.getGauche() != null && deltaX<0) ||
-                    (caseBut==null && this.position.getGauche() != null)){
-                directions.add(this.position.getGauche());
-            }
-            if ((this.position.getHaut()!= null && deltaY<0) || 
-                    (caseBut==null && this.position.getHaut() != null)){
-                directions.add(this.position.getHaut());
-            }
-            if ((this.position.getDroite()!= null && deltaX>0) || 
-                    (caseBut==null && this.position.getDroite() != null)){
-                directions.add(this.position.getDroite());
-            }
-            if ((this.position.getBas()!= null && deltaY>0) || 
-                    (caseBut==null && this.position.getBas() != null)){
-                directions.add(this.position.getBas());
-            }
             //deplacement eventuel
-            Case randomDir = directions.get((int)(Math.random() * directions.size()));
+            Case randomDir = this.direction(caseBut, deltaX, deltaY);
+            if(randomDir==null){
+                randomDir=this.position;
+            }
             this.position.getHabitant().remove(this);
             randomDir.getHabitant().add(this);
             this.position = randomDir;
@@ -92,6 +90,10 @@ public class Cannibale extends Neuneu {
         }
     }
 
+    /**
+     * Fais manger un aliment à this
+     * @param nutriment L'aliment a manger
+     */
     public void mange(Nutriment nutriment){
         if(nutriment instanceof Nourriture){
             ((Nourriture) nutriment).quantite -=1;
@@ -107,6 +109,11 @@ public class Cannibale extends Neuneu {
         }
     }
 
+    /**
+     * Fais se reproduire this (père) avec l'argument neuneu
+     * @param neuneu la mère
+     * @return Un neuneu nouveau né qui porte la race du père
+     */
     public Neuneu reproduction(Neuneu neuneu){
         this.energie -= 60;
         neuneu.energie -=60;

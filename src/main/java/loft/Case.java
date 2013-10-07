@@ -12,8 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- *
- * @author paulyves
+ * Représente une case du loft
+ * @author paulyves,mario
  */
 public class Case {
     protected int abs;
@@ -22,12 +22,22 @@ public class Case {
     protected List<Neuneu> habitant = new ArrayList<Neuneu>();
     protected Loft loft;
 
+    /**
+     * Constructeur par defaut
+     * @param abs
+     * @param ord
+     * @param loft 
+     */
     public Case(int abs, int ord, Loft loft) {
         this.abs = abs;
         this.ord = ord;
         this.loft = loft;
     }
     
+    /**
+     * Donne la case de gauche si elle existe
+     * @return La Case de gauche, ou null si inexistante
+     */
     public Case getGauche(){
         if(this.abs==0){
             return null;
@@ -42,6 +52,10 @@ public class Case {
         }
     }
     
+    /**
+     * Donne la case de droite si elle existe
+     * @return La Case de droite, ou null si inexistante
+     */
     public Case getDroite(){
         if(this.abs==Loft.W-1){
             return null;
@@ -56,6 +70,10 @@ public class Case {
         }
     }
     
+    /**
+     * Donne la case du haut
+     * @return Case du haut ou null si rien
+     */
     public Case getHaut(){
         if(this.ord==0){
             return null;
@@ -70,6 +88,10 @@ public class Case {
         }
     }
     
+    /**
+     * Donne la case du bas
+     * @return Case du bas null si rien
+     */
     public Case getBas(){
         if(this.ord==Loft.H-1){
             return null;
@@ -84,7 +106,6 @@ public class Case {
         }
     }
     
-
     public int getAbs() {
         return abs;
     }
